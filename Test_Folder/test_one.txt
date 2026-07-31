@@ -1,0 +1,186 @@
+# Docker & Kubernetes (Minikube) 
+
+Submission Requirements
+
+Students should submit:
+
+1. Screenshots of every command executed.
+2. All Dockerfiles.
+3. All Kubernetes YAML files.
+4. Output of:
+
+   ```bash
+   docker ps
+   docker images
+   kubectl get pods
+   kubectl get deployments
+   kubectl get services
+   kubectl get nodes
+   ```
+5. A ZIP folder containing:
+
+   * Dockerfiles
+   * YAML files
+   * Screenshots
+   * Python/Django source code (where applicable)
+
+
+## Question 1 
+
+**Marks: 5**
+
+Install Docker on your system and verify that it has been installed successfully.
+
+**Requirements:**
+
+* Display the Docker version.
+* Display Docker system information.
+* Take screenshots of the commands executed.
+
+---
+
+## Question 2 – Run Your First Docker Container
+
+**Marks: 5**
+
+Run an Nginx container using Docker.
+
+**Requirements:**
+
+* Name the container `my-nginx`
+* Map port `8080` on the host to port `80` inside the container.
+* Verify the website is accessible in the browser.
+* Display the list of running containers.
+
+---
+
+## Question 3 – Create Your Own Docker Image
+
+**Marks: 5**
+
+Create a Docker image for a simple Python application.
+
+Application:
+
+```python
+print("Welcome to Docker")
+```
+
+**Requirements:**
+
+* Write a Dockerfile.
+* Build the image.
+* Run the container.
+* Show the output.
+
+---
+
+## Question 4 – Docker Volumes
+
+**Marks: 5**
+
+Create a Docker volume and attach it to an Ubuntu container.
+
+**Requirements:**
+
+* Create a volume named `student-data`
+* Mount it inside the container at `/data`
+* Create a text file inside `/data`
+* Stop and restart the container.
+* Verify that the file still exists.
+
+---
+
+## Question 5 – Docker Networking
+
+**Marks: 5**
+
+Create a custom Docker bridge network.
+
+**Requirements:**
+
+* Create a network named `student-network`
+* Launch two Ubuntu containers connected to this network.
+* Verify that one container can ping the other.
+
+---
+
+# Kubernetes (Minikube)
+
+## Question 6 – Start Minikube
+
+**Marks: 5**
+
+Start a Minikube cluster.
+
+**Requirements:**
+
+* Verify the cluster status.
+* Display all nodes.
+* Display Kubernetes version.
+
+---
+
+## Question 7 – Create a Deployment
+
+**Marks: 5**
+
+Deploy an Nginx application in Kubernetes.
+
+**Requirements:**
+
+* Deployment name: `nginx-deployment`
+* Number of replicas: 2
+* Verify both Pods are running.
+
+---
+
+## Question 8 – Expose the Deployment
+
+**Marks: 5**
+
+Expose the Nginx deployment as a Kubernetes Service.
+
+**Requirements:**
+
+* Service name: `nginx-service`
+* Type: NodePort
+* Verify the service.
+* Access the application in the browser using Minikube.
+
+---
+
+## Question 9 – Scale the Deployment
+
+**Marks: 5**
+
+Increase the number of running Pods.
+
+**Requirements:**
+
+* Scale the deployment from **2 replicas to 5 replicas**.
+* Verify that all Pods are running successfully.
+* Display the deployment status.
+
+---
+
+## Question 10 – Deploy a Django Application
+
+**Marks: 5**
+
+You have already created a Docker image for your Django application.
+
+Deploy it in Kubernetes using YAML files.
+
+**Requirements:**
+
+* Create a Deployment named `django-deployment`.
+* Use **2 replicas**.
+* Create a ClusterIP Service named `django-service`.
+* Verify that:
+
+  * Deployment is running.
+  * Pods are healthy.
+  * Service has been created successfully.
+
+---
