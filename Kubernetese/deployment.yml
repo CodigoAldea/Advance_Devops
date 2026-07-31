@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: django-app
+  namespace: default
+  labels:
+    app: django
+    environment: development
+
+spec:
+
+  replicas: 3   # num of Pods to run at any given time.
+
+  selector:
+    matchLabels:
+      app: django
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+  template:
+  # this is for the PODS
+    metadata:
+      labels:
+        app: django
+        version: v1
+
+    spec:
+
+      containers:
+
+      - name: django-container
+
+        image: <dockerhub>/django-app:v1
+
+        imagePullPolicy: IfNotPresent
+
+        ports:
+        - containerPort: 8000
+
+        env:
+
+        - name: DEBUG
+          value: "False"
+
+        - name: DB_HOST
+          value: postgres
+
+        - name: DB_PORT
+          value: "5432"
+
+        - name: DB_NAME
+          value: <DB_Name>
+
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: <DB_User_Name>
+              key: username
+
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: <DB_Password_Secret>
+              key: password
+
+        resources:
+
+          requests:
+            memory: "256Mb"
+            cpu: "250m"
+
+          limits:
+            memory: "512Mb"
+            cpu: "500m"
+
+        livenessProbe:
+
+          httpGet:
+            path: /health/
+            port: 8000
+
+          initialDelaySeconds: 15
+          periodSeconds: 10
+
+        readinessProbe:
+
+          httpGet:
+            path: /health/
+            port: 8000
+
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+        volumeMounts:
+
+        - name: media-storage
+          mountPath: /app/media
+
+      volumes:
+
+      - name: media-storage
+        persistentVolumeClaim:
+          claimName: django-media-pvc
